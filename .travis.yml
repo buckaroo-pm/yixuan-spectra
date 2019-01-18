@@ -1,34 +1,33 @@
-branches:
-  only:
-    - master
-    - develop
-
 language: cpp
-
-compiler:
-  - clang
-  - gcc
+sudo: true
+dist: trusty
 
 addons:
   apt:
     sources:
       - ubuntu-toolchain-r-test
-      - llvm-toolchain-trusty-6.0
     packages:
-      - g++-8
-      - clang-6.0
+      - g++-6
+      - gcc-6
+  homebrew:
+    taps:
+      - facebook/fb
+    packages:
+      - buck
+
+os:
+  - linux
+  - osx
+
+env:
+  - BUCKAROO_VERSION=buckaroo-redux-alpha-11
+
+osx_image: xcode9.3
 
 before_install:
-  - if [ "$CXX" = "g++" ]; then export CXX="g++-8"; fi
-  - if [ "$CXX" = "clang++" ]; then export CXX="clang++-6.0"; fi
-  - $CXX --version
-
-install:
-  - wget https://bitbucket.org/eigen/eigen/get/3.3.5.tar.gz
-  - tar xzf 3.3.5.tar.gz
-  - mv eigen-eigen-b3f3d4950030/Eigen include/
+  - ./travis/before-install-$TRAVIS_OS_NAME.sh
 
 script:
-  - cd test
-  - make -j 2 all
-  - make test
+  - ./buckaroo-client install
+  - buck build -c ui.superconsole=DISABLED //:spectra
+  - buck run -c ui.superconsole=DISABLED //test:qr

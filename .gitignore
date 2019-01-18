@@ -1,3 +1,10 @@
 *.o
 *.out
 include/Eigen/*
+
+.buckd
+buck-out
+.buckconfig.local
+.buckconfig.d
+buckaroo
+buckaroo_macros.bzl

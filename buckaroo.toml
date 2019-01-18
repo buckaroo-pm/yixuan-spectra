@@ -1,0 +1,5 @@
+targets = [ "//:spectra" ]
+
+[[dependency]]
+package = "github.com/buckaroo-pm/eigen"
+version = "*"

@@ -1,0 +1,52 @@
+prebuilt_cxx_library(
+  name = 'catch',
+  header_namespace = '',
+  header_only = True,
+  exported_headers = [
+    'catch.hpp',
+  ],
+)
+
+cxx_binary(
+  name = 'eigen',
+  srcs = [
+    'Eigen.cpp',
+  ],
+  deps = [
+    '//:spectra',
+    ':catch',
+  ],
+)
+
+cxx_binary(
+  name = 'gen-eigs',
+  srcs = [
+    'GenEigs.cpp',
+  ],
+  deps = [
+    '//:spectra',
+    ':catch',
+  ],
+)
+
+cxx_binary(
+  name = 'sym-eigs',
+  srcs = [
+    'SymEigs.cpp',
+  ],
+  deps = [
+    '//:spectra',
+    ':catch',
+  ],
+)
+
+cxx_binary(
+  name = 'qr',
+  srcs = [
+    'QR.cpp',
+  ],
+  deps = [
+    '//:spectra',
+    ':catch',
+  ],
+)
